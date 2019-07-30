@@ -1,0 +1,11 @@
+#!/bin/sh
+# Format code with black.
+
+cd "$(dirname "$0")/.."
+
+black \
+  --target-version py36 \
+  --check \
+  --fast \
+  --quiet \
+  homeassistant tests script
