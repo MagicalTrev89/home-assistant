@@ -77,7 +77,7 @@ stages:
     - script: |
         . venv/bin/activate
         ./script/check_format
-      displayName: 'Check black formatting'
+      displayName: 'Check Black formatting'
 
 - stage: 'Tests'
   dependsOn:
