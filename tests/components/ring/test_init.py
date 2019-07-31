@@ -7,17 +7,11 @@ import requests_mock
 from homeassistant import setup
 import homeassistant.components.ring as ring
 
-from tests.common import (
-    get_test_config_dir, get_test_home_assistant, load_fixture)
+from tests.common import get_test_config_dir, get_test_home_assistant, load_fixture
 
-ATTRIBUTION = 'Data provided by Ring.com'
+ATTRIBUTION = "Data provided by Ring.com"
 
-VALID_CONFIG = {
-    "ring": {
-        "username": "foo",
-        "password": "bar",
-    }
-}
+VALID_CONFIG = {"ring": {"username": "foo", "password": "bar"}}
 
 
 class TestRing(unittest.TestCase):
@@ -42,27 +36,34 @@ class TestRing(unittest.TestCase):
     @requests_mock.Mocker()
     def test_setup(self, mock):
         """Test the setup."""
-        mock.post('https://oauth.ring.com/oauth/token',
-                  text=load_fixture('ring_oauth.json'))
-        mock.post('https://api.ring.com/clients_api/session',
-                  text=load_fixture('ring_session.json'))
+        mock.post(
+            "https://oauth.ring.com/oauth/token", text=load_fixture("ring_oauth.json")
+        )
+        mock.post(
+            "https://api.ring.com/clients_api/session",
+            text=load_fixture("ring_session.json"),
+        )
         response = ring.setup(self.hass, self.config)
         assert response
 
     @requests_mock.Mocker()
     def test_setup_component_no_login(self, mock):
         """Test the setup when no login is configured."""
-        mock.post('https://api.ring.com/clients_api/session',
-                  text=load_fixture('ring_session.json'))
+        mock.post(
+            "https://api.ring.com/clients_api/session",
+            text=load_fixture("ring_session.json"),
+        )
         conf = deepcopy(VALID_CONFIG)
-        del conf['ring']['username']
+        del conf["ring"]["username"]
         assert not setup.setup_component(self.hass, ring.DOMAIN, conf)
 
     @requests_mock.Mocker()
     def test_setup_component_no_pwd(self, mock):
         """Test the setup when no password is configured."""
-        mock.post('https://api.ring.com/clients_api/session',
-                  text=load_fixture('ring_session.json'))
+        mock.post(
+            "https://api.ring.com/clients_api/session",
+            text=load_fixture("ring_session.json"),
+        )
         conf = deepcopy(VALID_CONFIG)
-        del conf['ring']['password']
+        del conf["ring"]["password"]
         assert not setup.setup_component(self.hass, ring.DOMAIN, conf)
