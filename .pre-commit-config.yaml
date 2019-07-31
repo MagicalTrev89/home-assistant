@@ -4,6 +4,5 @@ repos:
     hooks:
     -   id: black
         args:
-          - -tpy36
           - --safe
           - --quiet
