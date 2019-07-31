@@ -18,10 +18,6 @@
 		"python.linting.pylintEnabled": true,
 		"python.linting.enabled": true,
 		"python.formatting.provider": "black",
-		"python.formatting.blackArgs": [
-			"--target--version",
-			"py36"
-		],
 		"editor.formatOnPaste": false,
 		"editor.formatOnSave": true,
 		"editor.formatOnType": true,
