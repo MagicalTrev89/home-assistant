@@ -117,40 +117,30 @@ class TestEcobee(unittest.TestCase):
     def test_device_state_attributes(self):
         """Test device state attributes property."""
         self.ecobee['equipmentStatus'] = 'heatPump2'
-        assert {'climate_list': ['Climate1', 'Climate2'],
-                'fan': 'off',
+        assert {'fan': 'off',
                 'fan_min_on_time': 10,
-                'climate_mode': 'Climate1',
                 'equipment_running': 'heatPump2'} == \
             self.thermostat.device_state_attributes
 
         self.ecobee['equipmentStatus'] = 'auxHeat2'
-        assert {'climate_list': ['Climate1', 'Climate2'],
-                'fan': 'off',
+        assert {'fan': 'off',
                 'fan_min_on_time': 10,
-                'climate_mode': 'Climate1',
                 'equipment_running': 'auxHeat2'} == \
             self.thermostat.device_state_attributes
         self.ecobee['equipmentStatus'] = 'compCool1'
-        assert {'climate_list': ['Climate1', 'Climate2'],
-                'fan': 'off',
+        assert {'fan': 'off',
                 'fan_min_on_time': 10,
-                'climate_mode': 'Climate1',
                 'equipment_running': 'compCool1'} == \
             self.thermostat.device_state_attributes
         self.ecobee['equipmentStatus'] = ''
-        assert {'climate_list': ['Climate1', 'Climate2'],
-                'fan': 'off',
+        assert {'fan': 'off',
                 'fan_min_on_time': 10,
-                'climate_mode': 'Climate1',
                 'equipment_running': ''} == \
             self.thermostat.device_state_attributes
 
         self.ecobee['equipmentStatus'] = 'Unknown'
-        assert {'climate_list': ['Climate1', 'Climate2'],
-                'fan': 'off',
+        assert {'fan': 'off',
                 'fan_min_on_time': 10,
-                'climate_mode': 'Climate1',
                 'equipment_running': 'Unknown'} == \
             self.thermostat.device_state_attributes
 
@@ -252,11 +242,6 @@ class TestEcobee(unittest.TestCase):
             self.ecobee['settings']['holdAction'] = action
             assert 'nextTransition' == \
                 self.thermostat.hold_preference()
-
-    def test_climate_list(self):
-        """Test climate list property."""
-        assert ['Climate1', 'Climate2'] == \
-            self.thermostat.climate_list
 
     def test_set_fan_mode_on(self):
         """Test set fan mode to on."""
